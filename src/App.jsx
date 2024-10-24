@@ -3,7 +3,6 @@ import './App.css';
 import katex from 'katex';
 
 function App() {
-  const [count, setCount] = useState(0);
   const [x, setX] = useState(80);
   let formula = katex.renderToString("c=\\pm\\sqrt{a^2+b^2}", {throwOnError: false});
   const onInput = (evt) => {
@@ -27,11 +26,6 @@ function App() {
         <img src="./src/assets/q1.svg" alt="Question 1 figure" />
       </section>
       <article dangerouslySetInnerHTML={{__html: formula}}></article>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
     </>
   )
 }
