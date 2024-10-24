@@ -26,6 +26,7 @@ function App() {
         <img src="./src/assets/q1.svg" alt="Question 1 figure" />
       </section>
       <article dangerouslySetInnerHTML={{__html: formula}}></article>
+      <a href="./index.html">BACK</a>
     </>
   )
 }
