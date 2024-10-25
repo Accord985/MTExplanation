@@ -1,5 +1,7 @@
-import { useState } from 'react';  // "/..." means importing from public folder
+import { useState } from 'react';  //
 import './App.css';
+import q1 from '/q1.svg';  // "/..." means importing from public folder. Necessary import statement so the webpack handles the correct route for me when base url is different
+import q1Ground from '/q1-ground.svg'
 import katex from 'katex';
 
 function App() {
@@ -22,9 +24,9 @@ function App() {
         <input type="range" min="2" max="449" placeholder="80" onInput={onInput} />
         <br />
         <div id="overlay" style={{width: `${x}px`}}>
-          <img src="./src/assets/q1-ground.svg" alt="Question 1 ground" />
+          <img src={q1Ground} alt="Question 1 ground" />
         </div>
-        <img src="./src/assets/q1.svg" alt="Question 1 figure" />
+        <img src={q1} alt="Question 1 figure" />
       </section>
       <article>
         Some LaTeX formula:
