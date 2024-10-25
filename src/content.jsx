@@ -6,7 +6,7 @@ createRoot(document.getElementById('root')).render(
     <section>
       <h1>Midterm Explanation</h1>
       <ul>
-        <li><a href="/page.html">Page</a></li>
+        <li><a href="page.html">Page</a></li>
         <li>Coming soon...</li>
       </ul>
     </section>

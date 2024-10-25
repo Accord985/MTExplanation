@@ -20,13 +20,17 @@ function App() {
       <section>
         Interactive Example: Drag the slider!
         <input type="range" min="2" max="449" placeholder="80" onInput={onInput} />
+        <br />
         <div id="overlay" style={{width: `${x}px`}}>
           <img src="./src/assets/q1-ground.svg" alt="Question 1 ground" />
         </div>
         <img src="./src/assets/q1.svg" alt="Question 1 figure" />
       </section>
-      <article dangerouslySetInnerHTML={{__html: formula}}></article>
-      <a href="./index.html">BACK</a>
+      <article>
+        Some LaTeX formula:
+        <div dangerouslySetInnerHTML={{__html: formula}}></div>
+      </article>
+      <a href="index.html">BACK</a>
     </>
   )
 }
