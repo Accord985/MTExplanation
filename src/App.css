@@ -1,7 +1,5 @@
-#overlay {
-  height: 232px;
-  position: absolute;
-  backdrop-filter: contrast(0.4) grayscale(1) brightness(2);
-  display: flex;
-  justify-content: end;
+body {
+  background-image: url('/sea-edge.png');
+  background-size: cover;
+  background-attachment: fixed;
 }

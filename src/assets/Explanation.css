@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+.explanation > section, .explanation > article {
+  background: rgba(255,255,255,0.4);
+  border-radius: min(3vw, 40px);
+  padding: min(4vw, 30px);
+  margin: min(5vh, 30px);
+  font-family: Sour Gummy;
+}
+

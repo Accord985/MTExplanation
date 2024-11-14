@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+h2.diagram {
+  font-family: Sour Gummy;
+}
+
+/* + means the element that comes immediately after specified element */
+h2.diagram + section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h2.diagram + section > div {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+h2.diagram + section > div > div {
+  height: 232px;
+  display: flex;
+  overflow: hidden;
+}
+
+h2.diagram + section > div > div:nth-child(1) {
+  justify-content: left;
+}
+
+h2.diagram + section > div > div:nth-child(2) {
+  justify-content: right;
+}
+
+#overlay img:first-child {
+  left: 0;
+  z-index: 1;
+}
+
+#overlay img:nth-child(2) {
+  position: relative;
+  z-index: 2;
+}
+
+.interactive input, .interactive img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
