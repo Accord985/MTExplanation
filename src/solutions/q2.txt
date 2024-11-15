@@ -3,27 +3,66 @@
 
 1. Deformation problem: The question asks for deflection, so we need to know lateral load and deformation.
 2. Load type: distributed lateral load due to gravity and a bending moment
-3. bar type: Compound, including one segmented senario with a moment and a continuously varying senario with the load
+3. bar type: Compound, including one segmented scenario with a moment and a continuously varying scenario with the load
 4. working direction: reverse [where I find appropriate properties for a given outcome (no deflection at the tip)]
 
 <S>
 # Identify the procedures according to the type:
 ## Initial Thoughts
-As the general formula for deflection is {{\frac{d^2 v} {dx^2}=\frac{M(x)} {EI}}}, we need to calculate {{M(x)}} because it is the only variable that changes with position.
-## Finding {{M(x)}} for both senarios:
+As the general formula for deflection is {{ \frac{d^2 v} {dx^2}=\frac{M(x)} {EI} }}, we need to calculate {{M(x)}} because it is the only variable that changes with position.
+## Solving the deflection at {{x=L}} for both scenarios:
 ### Segmented (the bending moment)
 
-1. Make a cut within each segment and solve the FBD to find M(x) in each
-2. Use the formula for deflection to get deflection formula for each segment. 2nd diffeq, 2 initial values (use ??)
+1. Make a cut within each segment and solve the FBD to find {{M(x)}} in each
+2. Use the general formula for deflection to get deflection for each segment. We end up with 2 2nd diff-eq.
+3. Solve the two equations with 2 initial values for each. We will use {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}} for the support side and the values for {{v(\frac{L} {2})}} and {{\frac{dv} {dx}(\frac{L} {2})}} for the other.
 * Don't plug in values out of region!
-3. calculate v for segmented at L
+3. calculate the value of {{v}} at {{x=L}} for the deflection due to bending moment {{v_1(L)}}
 
-### continuously varying (the gravity load)
+### Continuously varying (the gravity load)
 
 1. replace the distributed load with resultant force and calculate M(x) in the FBD
-* use {q} (unit N/m) as the factor as the value is constant along the bar
-2. Use the formula for deflection
-3.
+* use {{q}} (unit N/m) as the factor as the value is constant along the bar
+2. Use the formula for deflection and get a 2nd diff-eq
+3. Solve the equation with 2 initial values. We will use {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}}
+4. calculate the value of {{v}} at {{x=L}} for the deflection due to gravity {{v_2(L)}}
+
+Don't treat them as a single scenario. You will be overwhelmed by calculation!!!
+
+## Lastly, find the total deflection with {{v(L)=v_1(L)+v_2(L)}}. Solve {{v(L)=0}} for {{M_0}}.
+
+<S>
+# Step 1: Solving the scenario for the bending moment
+## Solving M(x) along the beam
+Suppose that x is the distance from the support to the right.
+[a] {{0<x<\frac{L} {2} }}
+
+1. Using the deformation sign convention (shear force {{V}} along the cut is positive if it makes the object twist clockwise, and moment {{M}} is positive when it makes the beam bend like a smiley face), we create the free body diagram and solve for {{M}} specifically.
+{{-M+M_0-q(L-x)\cdot\frac{L-x} {2}=0}}, and therefore {{M=M_0-\frac{q} {2}(L-x)^2}}.
+* The shear force {{V}} and deflection {{v}} are different. Be careful!
+
+[b] {{\frac{L} {2}<x<L}}
+Using the same approach, we make the FBD. The solution for {{M}} will be {{M=-\frac{q} {2}(L-x)^2}}.
+
+## Applying the deflection equation and solve for {{v}}
+We need to solve this value in two cases: {{\begin{cases} \frac{d^2v_1} {dx^2}=M_0-\frac{q} {2}(L-x)^2 &\text{if } 0<x<\frac{L} {2}  \\  \frac{d^2v_1} {dx^2}=-\frac{q} {2}(L-x)^2 &\text{if } \frac{L} {2}<x<L \end{cases} }}
+Integrating twice, we have {{v_1=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})+C_1x+C_2}}
+Applying the initial conditions {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}}, we solve that {{\begin{cases} C_1=0  \\  C_2=0 \end{cases} }}
+Therefore {{v_1(x)=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})}}
+And {{v_1(L)=-\frac{q} {2EI}(\frac{L^4} {2}-\frac{L^4} {3}+\frac{L^4} {12})=-\frac{qL^4} {8EI} }}
 
 
-* don't treat them as single problem. You will die calculating!!!
+<S>
+# Step 2: Solving the scenario for gravity
+## Solving M(x) along the beam
+
+1. Using the deformation sign convention, we create the free body diagram and solve for {{M}} specifically.
+{{M=-q\frac{(L-x)^2} {2} }}.
+
+## Applying the deflection equation and solve for {{v}}
+{{\frac{d^2v_1} {dx^2}=\frac{M} {EI} }}
+Integrating twice, we have {{v_1=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})+C_1x+C_2}}
+Applying the initial conditions {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}}, we solve that {{\begin{cases} C_1=0  \\  C_2=0 \end{cases} }}
+Therefore {{v_1(x)=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})}}
+And {{v_1(L)=-\frac{q} {2EI}(\frac{L^4} {2}-\frac{L^4} {3}+\frac{L^4} {12})=-\frac{qL^4} {8EI} }}
+

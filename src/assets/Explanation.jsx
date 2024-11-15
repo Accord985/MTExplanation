@@ -21,14 +21,14 @@ function Notes(props) {
     <Fragment key={stringHash("notes wrapper"+note)}>
       <section className='notes' key={stringHash("notes"+note)}>
         <h3 key={stringHash("notes head"+note)}>Notes</h3>
-        <p key={stringHash(note)}>{note}</p>
+        <p key={stringHash(""+note)}>{note}</p>
       </section>
     </Fragment>
   );
 }
 
 Notes.propTypes = {
-  note: PropTypes.string
+  note: PropTypes.array
 }
 
 function stringHash(s) {
@@ -79,6 +79,11 @@ export default function Explanation(props) {
         return <Math key={match+i} latex={match} />;
       })
     } else if (isValidElement(element)) {
+      if (element.props.note) {  // in case it is Notes
+        return cloneElement(element, {
+          note: replaceMath(element.props.note[0])
+        });
+      }
       return cloneElement(element, {
         children: Children.map(element.props.children, (child) =>
           replaceMath(child)
@@ -149,7 +154,7 @@ export default function Explanation(props) {
         let content = curr.split(numCheck)[1];
         itemElements[i] = <li key={stringHash(content)}>{content}</li>;
       } else if (curr.startsWith("* ")) {
-        itemElements[i] = <Notes note={curr.substring(2)} />;
+        itemElements[i] = <Notes note={[curr.substring(2)]} />;
       } else if (curr !== "") {
         itemElements[i] = <p key={stringHash(curr)}>{curr}</p>;
       }

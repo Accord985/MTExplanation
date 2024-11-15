@@ -11,6 +11,7 @@
 .notes {
   color: darkslategray;
   font-style: italic;
+  backdrop-filter: blur(20px);
 }
 
 .notes > h3 {
