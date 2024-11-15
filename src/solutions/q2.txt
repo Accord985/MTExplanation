@@ -66,3 +66,12 @@ Applying the initial conditions {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}}, we solve
 Therefore {{v_1(x)=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})}}
 And {{v_1(L)=-\frac{q} {2EI}(\frac{L^4} {2}-\frac{L^4} {3}+\frac{L^4} {12})=-\frac{qL^4} {8EI} }}
 
+<S>
+# Step 3: Add them up!
+
+## Find total deflection at {{x=L}}
+{{v(L)=v_1(L)+v_2(L)=\frac{3M_0L^2} {8EI}-\frac{qL^4} {8EI} }}
+## Solve {{v(L)=0}} for the unknown condition {{M_0}}
+{{\frac{3M_0L^2} {8EI}-\frac{qL^4} {8EI}=0 \rightleftharpoons M_0=\frac{qL^2} {3}=\frac{1} {3}\rho g\pi R^2L^2}}
+
+Solution for q: {{q=\frac{F} {L}=\frac{\rho g\pi R^2L} {L}=\rho g\pi R^2}}
