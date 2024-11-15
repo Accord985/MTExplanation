@@ -1,0 +1,29 @@
+<S>
+# Identify the type of the Problem:
+
+1. Deformation problem: The question asks for deflection, so we need to know lateral load and deformation.
+2. Load type: distributed lateral load due to gravity and a bending moment
+3. bar type: Compound, including one segmented senario with a moment and a continuously varying senario with the load
+4. working direction: reverse [where I find appropriate properties for a given outcome (no deflection at the tip)]
+
+<S>
+# Identify the procedures according to the type:
+## Initial Thoughts
+As the general formula for deflection is {{\frac{d^2 v} {dx^2}=\frac{M(x)} {EI}}}, we need to calculate {{M(x)}} because it is the only variable that changes with position.
+## Finding {{M(x)}} for both senarios:
+### Segmented (the bending moment)
+
+1. Make a cut within each segment and solve the FBD to find M(x) in each
+2. Use the formula for deflection to get deflection formula for each segment. 2nd diffeq, 2 initial values (use ??)
+* Don't plug in values out of region!
+3. calculate v for segmented at L
+
+### continuously varying (the gravity load)
+
+1. replace the distributed load with resultant force and calculate M(x) in the FBD
+* use {q} (unit N/m) as the factor as the value is constant along the bar
+2. Use the formula for deflection
+3.
+
+
+* don't treat them as single problem. You will die calculating!!!

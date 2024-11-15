@@ -3,3 +3,14 @@ body {
   background-size: cover;
   background-attachment: fixed;
 }
+
+h1 {
+  size: 15rem;
+  text-align: center;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h1 + img {
+  width: 80vw;
+  margin-left: 10vw;
+}

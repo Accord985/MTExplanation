@@ -5,11 +5,16 @@ import q1Back from '/q1-back.svg';  // "/..." means importing from public folder
 import q1Ground from '/q1-ground.svg';
 import Interactive from './assets/Interactive';
 import Explanation from './assets/Explanation';
-import textSolution from './solutions/q1-1.txt';
+import PropTypes from 'prop-types';
 
-function App() {
+App.propTypes = {
+  textUrl: PropTypes.string
+}
+
+function App(props) {
+  let textUrl = props.textUrl;
   let [template, setTemplate] = useState("");
-  fetch(textSolution)
+  fetch(textUrl)
     .then(statusCheck)
     .then((res) => res.text())
     .then((result) => {
@@ -29,9 +34,6 @@ function App() {
 
   return (
     <>
-      <section>
-        Question
-      </section>
       <Explanation template={template} />
       <Interactive left={q1Back} middle={q1Ground} right={q1}
           dimensions={{width: 580, height: 232, middleWidth: 23}}

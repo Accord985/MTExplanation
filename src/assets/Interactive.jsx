@@ -42,7 +42,7 @@ function Interactive(props) {
 
   return (
     <section className='interactive'>
-      <h2 className='diagram'>Interactive Example: Drag the slider!</h2>
+      <h2 className='diagram'>(Experimental) Interactive Example: Drag the slider!</h2>
       <section>
         <div style={style}>
           <div style={{width: `${x}px`}}>

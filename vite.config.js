@@ -12,7 +12,8 @@ export default defineConfig(({command, isPreview}) => {
       rollupOptions: {
         input: {
           main: resolve('index.html'),
-          page: resolve('page.html'),
+          q1: resolve('q1.html'),
+          q2: resolve('q2.html')
         }
       }
     }
