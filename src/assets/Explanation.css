@@ -8,3 +8,19 @@
   font-family: Sour Gummy;
 }
 
+.notes {
+  color: darkslategray;
+  font-style: italic;
+}
+
+.notes > h3 {
+  size: 5rem;
+  margin-bottom: 0;
+}
+
+.notes > p {
+  size: 3rem;
+  margin-top: 0;
+}
+
+

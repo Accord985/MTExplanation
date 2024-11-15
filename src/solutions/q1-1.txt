@@ -1,0 +1,71 @@
+<S>
+# Identify the type of the Problem:
+
+1. Stress problem: The question asks for material failure. Thus we do not need to care about the strain.
+2. Load type: axial force.
+3. bar type: segmental, which involves continuously varying force on one segment
+4. working direction: reverse [where I find appropriate properties for a given outcome (failure)]
+
+<S>
+# Identify the procedures according to the type:
+## Part I: Find the maximum load inside the bar
+
+1. Find the internal force at any arbitrary positions in the bar.
+2. As the bar is segmented, we make cuts between the segments to find the expression for the internal force N(x) at each segment (the free body diagram is going to be different in each segment)
+* How to cut: We only focus on one side of the cut and ignore everything on the other side. There will be another solid support at the cut due to the other half of the material.
+* Typically we ignore the side with support so we don't bother finding the value of supportive force there. This works only if there is only one support in the diagram.
+[[FIGURE INTERACTIVE]]
+3. We find the maximum value of N(x), and the point at that x is called the position of interest.
+4. Find the load {{sigma_x}} at the position of interest with {{N(x)}}
+
+## Part II: Test for failure where {{sigma_x=maximum load}}
+{{sig y=0}}, and {{tau=0}}: (since this is an axial load)
+
+1. Use the formulas for calculating stresses at a seam {{3 FORMULAS WITH TRIG}}
+* As this is a seam problem, we are not using sig1,2 and taumax
+2. Compare: {{sigyt lt UTS}}, {{|taut| lt USS}}
+* As the seam only breaks on normal stress or shear stress, pay no attention to UCS
+
+<S>
+# Part 1: Find the maximum load inside the bar
+## Step 1: Find the internal force at any arbitrary positions in the bar.
+### Define the coordinates:
+let x be the distance from the solid support to the right.
+### Find the expression of N(x) at each segment:
+[a] {{0<x<L-l}}:
+
+1. Cut the beam at some x in that range:
+FIGURE
+* We assume that positive N goes to the left because we applied internal sign convention when drawing the FBD. The benefit is that we know the force is tensile or compressive by its sign. (+=Tensile, -=Compressive)
+* We only replace the distributed load with resultant load (here we don't need to integrate because {{F_d}} is uniform) after the cut.
+* FIGURE COMPARISON for the replacing distributed load
+2. Replace the distributed load:
+{{F_R=\int_{L-l}^L F_d dx=F_dl}}
+3. Solve for the FBD:
+{{\\sum F_x=-N+F_d(L-x)=0 => N=F_d(L-x)}}
+
+[b] {{L-l<x<L}}
+
+1. Cut the beam at some x in that range:
+FIGURE
+2. Solve for the FBD:
+{{\sum F_x=bla}}
+
+Thus, {{N(x)=F_d l, 0<x<=L-l; F_d(L-x), L-l<x<L}}
+
+## Step 2: Pick the maximum value of N(x) (finding the position of interest)
+
+1. Find the maximum of N in each stage of x:
+In {{0<x<=L-l}}, {{max(N(x))=F_d.l}};...
+2. Find the maximum of these values to find the overall maximum:
+{{what}}
+
+## Step 3: Find the load {{sigma_x}} at {{x=L-l}} (position of interest):
+{{the}}
+
+<S>
+# Part 2: Test for failure at {{x=L-l}}
+
+1. {{sigma_x=maximum load}}, {{sig y=0}}, and {{tau=0}} (since this is an axial load)
+2. Applying {{3 FORMULAS WITH TRIG}}
+4. Compare: {{sigyt lt UTS}}?? {{|taut| lt USS}}?? {{heck}}

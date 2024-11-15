@@ -28,32 +28,35 @@ function Interactive(props) {
   };
 
   // adapt the width of wrapper
-  const correctionFactor = 0.8 * document.body.clientWidth / width;
+  const CLIENT_WIDTH = document.body.clientWidth;
+  const correctionFactor = 0.8 * CLIENT_WIDTH / width;
   let style = {};
+  let dialLength = width * 0.8;
   if (correctionFactor < 1) {
     style = {
-      transform: `translateX(${(document.body.clientWidth - width) / 2}px) scale(${correctionFactor})`,
-      width: `max(${width}px, 80vw)`
+      transform: `scale(${correctionFactor})`,
+      width: `max(${width}px, 80vw)`,
     };
+    dialLength = CLIENT_WIDTH * 0.8;
   }
 
   return (
-    <>
+    <section className='interactive'>
       <h2 className='diagram'>Interactive Example: Drag the slider!</h2>
       <section>
         <div style={style}>
-          <div id="overlay" style={{width: `${x}px`}}>
+          <div style={{width: `${x}px`}}>
             <img src={left} width={width} height={height} alt="Back Layer" />
             <img src={middle} width={midWidth} height={height} style={{left: `${x - width - midWidth}px`}} alt="Middle Sliding Layer" />
           </div>
-          <div id="back" style={{width: `${width - x}px`}}>
+          <div style={{width: `${width - x}px`}}>
             <img src={right} width={width} height={height} alt="Top Layer" />
           </div>
         </div>
-        <input type="range" style={{width: `${width * 0.8}px`}}
+        <input type="range" style={{width: `${dialLength}px`}}
             min={minVal} max={maxVal} placeholder={initial} onInput={onInput} />
       </section>
-    </>
+    </section>
   )
 }
 

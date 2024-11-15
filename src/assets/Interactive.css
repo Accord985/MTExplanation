@@ -16,12 +16,18 @@ h2.diagram + section > div {
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
+  filter: grayscale(1);  /* The color is so bad so I did this */
 }
 
 h2.diagram + section > div > div {
   height: 232px;
   display: flex;
   overflow: hidden;
+}
+
+h2.diagram + section > div > div img, input {
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 h2.diagram + section > div > div:nth-child(1) {
@@ -32,17 +38,12 @@ h2.diagram + section > div > div:nth-child(2) {
   justify-content: right;
 }
 
-#overlay img:first-child {
+h2.diagram + section > div > div img:first-child {
   left: 0;
   z-index: 1;
 }
 
-#overlay img:nth-child(2) {
+h2.diagram + section > div > div img:nth-child(2) {
   position: relative;
   z-index: 2;
-}
-
-.interactive input, .interactive img {
-  user-select: none;
-  -webkit-user-drag: none;
 }

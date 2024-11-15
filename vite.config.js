@@ -7,14 +7,12 @@ export default defineConfig(({command, isPreview}) => {
   return ({
     plugins: [react()],
     base: (command === 'build' || isPreview) ? "/MTExplanation/" : "/",
-    // base: '/MTExplanation/',
     build: {
       emptyOutDir: true,
       rollupOptions: {
         input: {
           main: resolve('index.html'),
           page: resolve('page.html'),
-
         }
       }
     }
