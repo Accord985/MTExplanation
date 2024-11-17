@@ -6,7 +6,7 @@ import q1Back from '/q1-back.svg';
 import q1Mid from '/q1-ground.svg';
 import q1 from '/q1.svg';
 
-import TextFetch from './assets/textFetch.jsx';
+import TextFetch from './assets/TextFetch.jsx';
 import Explanation from './assets/Explanation.jsx';
 import Interactive from './assets/Interactive.jsx';
 

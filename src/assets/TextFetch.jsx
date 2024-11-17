@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function TextFetch(textUrl) {
+export default function TextFetch(textUrl) {  // have to start with uppercase because i need to use useState
   let [template, setTemplate] = useState("");
   fetch(textUrl)
     .then(statusCheck)
