@@ -3,7 +3,6 @@ import q1Solution from './solutions/q1.txt';
 import q1Back from '/q1-back.svg';    // "/..." means importing from public folder. Necessary import statement so the webpack handles the correct route for me when base url is different
 import q1Mid from '/q1-ground.svg';
 import q1 from '/q1.svg';
-import './page.css';
 import TextFetch from './assets/textFetch.jsx';
 import Explanation from './assets/Explanation.jsx';
 import Interactive from './assets/Interactive.jsx';
