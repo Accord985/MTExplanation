@@ -14,7 +14,7 @@
 2. As the bar is segmented, we make cuts between the segments to find the expression for the internal force N(x) at each segment (the free body diagram is going to be different in each segment)
 * How to cut: We only focus on one side of the cut and ignore everything on the other side. There will be another solid support at the cut due to the other half of the material.
 * Typically we ignore the side with support so we don't bother finding the value of supportive force there. This works only if there is only one support in the diagram.
-[[FIGURE INTERACTIVE]]
+##RESOURCE slider
 3. We find the maximum value of N(x), and the point at that x is called the position of interest.
 4. Find the load {{sigma_x}} at the position of interest with {{N(x)}}
 
@@ -35,10 +35,10 @@ let x be the distance from the solid support to the right.
 [a] {{0<x<L-l}}:
 
 1. Cut the beam at some x in that range:
-FIGURE
+##RESOURCE q1
 * We assume that positive N goes to the left because we applied internal sign convention when drawing the FBD. The benefit is that we know the force is tensile or compressive by its sign. (+=Tensile, -=Compressive)
 * We only replace the distributed load with resultant load (here we don't need to integrate because {{F_d}} is uniform) after the cut.
-* FIGURE COMPARISON for the replacing distributed load
+##RESOURCE comparison
 2. Replace the distributed load:
 {{F_R=\int_{L-l}^L F_d dx=F_dl}}
 3. Solve for the FBD:
@@ -47,7 +47,6 @@ FIGURE
 [b] {{L-l<x<L}}
 
 1. Cut the beam at some x in that range:
-FIGURE
 2. Solve for the FBD:
 {{\sum F_x=bla}}
 

@@ -11,21 +11,20 @@
 ## Initial Thoughts
 As the general formula for deflection is {{ \frac{d^2 v} {dx^2}=\frac{M(x)} {EI} }}, we need to calculate {{M(x)}} because it is the only variable that changes with position.
 ## Solving the deflection at {{x=L}} for both scenarios:
-### Segmented (the bending moment)
+### Deflection due to the bending moment {{v_1}} (Segmented scenario)
 
 1. Make a cut within each segment and solve the FBD to find {{M(x)}} in each
-2. Use the general formula for deflection to get deflection for each segment. We end up with 2 2nd diff-eq.
-3. Solve the two equations with 2 initial values for each. We will use {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}} for the support side and the values for {{v(\frac{L} {2})}} and {{\frac{dv} {dx}(\frac{L} {2})}} for the other.
-* Don't plug in values out of region!
-3. calculate the value of {{v}} at {{x=L}} for the deflection due to bending moment {{v_1(L)}}
+2. Use the general formula for deflection to get deflection for each segment. We will end up with 2 2nd differential equations.
+3. Solve the equations with 2 initial values for each.
+4. Calculate the value of {{v_1}} at {{x=L}} for the deflection due to bending moment {{v_1(L)}}
 
-### Continuously varying (the gravity load)
+### Deflection due to the gravity load {{v_2}} (Continuously varying)
 
-1. replace the distributed load with resultant force and calculate M(x) in the FBD
+1. Replace the distributed load with resultant force and calculate M(x) in the FBD
 * use {{q}} (unit N/m) as the factor as the value is constant along the bar
 2. Use the formula for deflection and get a 2nd diff-eq
 3. Solve the equation with 2 initial values. We will use {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}}
-4. calculate the value of {{v}} at {{x=L}} for the deflection due to gravity {{v_2(L)}}
+4. Calculate the value of {{v}} at {{x=L}} for the deflection due to gravity {{v_2(L)}}
 
 Don't treat them as a single scenario. You will be overwhelmed by calculation!!!
 
@@ -38,19 +37,27 @@ Suppose that x is the distance from the support to the right.
 [a] {{0<x<\frac{L} {2} }}
 
 1. Using the deformation sign convention (shear force {{V}} along the cut is positive if it makes the object twist clockwise, and moment {{M}} is positive when it makes the beam bend like a smiley face), we create the free body diagram and solve for {{M}} specifically.
-{{-M+M_0-q(L-x)\cdot\frac{L-x} {2}=0}}, and therefore {{M=M_0-\frac{q} {2}(L-x)^2}}.
+{{-M+M_0=0}}, and therefore {{M=M_0}}.
 * The shear force {{V}} and deflection {{v}} are different. Be careful!
 
 [b] {{\frac{L} {2}<x<L}}
-Using the same approach, we make the FBD. The solution for {{M}} will be {{M=-\frac{q} {2}(L-x)^2}}.
+Using the same approach, we make the FBD. The solution for {{M}} will be {{M=0}}.
 
-## Applying the deflection equation and solve for {{v}}
-We need to solve this value in two cases: {{\begin{cases} \frac{d^2v_1} {dx^2}=M_0-\frac{q} {2}(L-x)^2 &\text{if } 0<x<\frac{L} {2}  \\  \frac{d^2v_1} {dx^2}=-\frac{q} {2}(L-x)^2 &\text{if } \frac{L} {2}<x<L \end{cases} }}
-Integrating twice, we have {{v_1=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})+C_1x+C_2}}
-Applying the initial conditions {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}}, we solve that {{\begin{cases} C_1=0  \\  C_2=0 \end{cases} }}
-Therefore {{v_1(x)=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})}}
-And {{v_1(L)=-\frac{q} {2EI}(\frac{L^4} {2}-\frac{L^4} {3}+\frac{L^4} {12})=-\frac{qL^4} {8EI} }}
+## Applying the deflection equation and solve for {{v_1}}
+We need to solve two diff-eqs: {{\begin{cases} \frac{d^2v_1} {dx^2}=\frac{M_0} {EI} &\text{if } 0<x<\frac{L} {2}  \\  \frac{d^2v_1} {dx^2}=0 &\text{if } \frac{L} {2}<x<L \end{cases} }}
+[a] {{0<x<\frac{L} {2} }}
 
+1. Integrating twice, we have {{v_1=-\frac{M_0} {EI}\cdot\frac{x^2} {2}+C_1x+C_2}}
+2. Applying the initial conditions {{v_1(0)=0}} and {{\frac{dv_1} {dx}(0)=0}}, we solve that {{\begin{cases} C_1=0  \\  C_2=0 \end{cases} }}
+3. Therefore and we can calculate {{v_1(\frac{L} {2})=\frac{M0} {EI}\cdot\frac{L^2} {8} }} and {{\frac{dv} {dx}(\frac{L} {2})=\frac{M0} {EI}\cdot\frac{L} {2} }} for the initial conditions for the next segment
+* Don't plug in values out of region! As this diff-eq only applies for {{0<x<\frac{L} {2} }}, you cannot plug {{x=L}} in for {{v_1(L)}} yet.
+
+As the v and dv must be continuous along the beam, we can use v(L/2) and  as the initial condition for the second
+Now we can solve the second differential equation with the same steps:
+
+1. Integrating twice, we have {{v_1=C_1x+C_2}}
+2. Applying the initial conditions from the previous segment, we solve that {{\begin{cases} C_1=\frac{M0} {EI}\cdot\frac{L} {2}  \\  C_2=-\frac{M0} {EI}\cdot\frac{L^2} {8} \end{cases} }}
+3. Therefore and we can calculate {{v_1(L)}}: {{v_1(L)=\frac{3M_0L^2} {8EI} }}
 
 <S>
 # Step 2: Solving the scenario for gravity
@@ -59,12 +66,12 @@ And {{v_1(L)=-\frac{q} {2EI}(\frac{L^4} {2}-\frac{L^4} {3}+\frac{L^4} {12})=-\fr
 1. Using the deformation sign convention, we create the free body diagram and solve for {{M}} specifically.
 {{M=-q\frac{(L-x)^2} {2} }}.
 
-## Applying the deflection equation and solve for {{v}}
-{{\frac{d^2v_1} {dx^2}=\frac{M} {EI} }}
-Integrating twice, we have {{v_1=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})+C_1x+C_2}}
-Applying the initial conditions {{v(0)=0}} and {{\frac{dv} {dx}(0)=0}}, we solve that {{\begin{cases} C_1=0  \\  C_2=0 \end{cases} }}
-Therefore {{v_1(x)=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})}}
-And {{v_1(L)=-\frac{q} {2EI}(\frac{L^4} {2}-\frac{L^4} {3}+\frac{L^4} {12})=-\frac{qL^4} {8EI} }}
+## Applying the deflection equation and solve for {{v_2}}
+{{\frac{d^2v_2} {dx^2}=\frac{M} {EI} }}
+Integrating twice, we have {{v_2=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})+C_1x+C_2}}
+Applying the initial conditions {{v_2(0)=0}} and {{\frac{dv_2} {dx}(0)=0}}, we solve that {{\begin{cases} C_1=0  \\  C_2=0 \end{cases} }}
+Therefore {{v_2(x)=-\frac{q} {2EI}(L^2\frac{x^2} {2}-L\frac{x^3} {3}+\frac{x^4} {12})}}
+And {{v_2(L)=-\frac{q} {2EI}(\frac{L^4} {2}-\frac{L^4} {3}+\frac{L^4} {12})=-\frac{qL^4} {8EI} }}
 
 <S>
 # Step 3: Add them up!
@@ -72,6 +79,6 @@ And {{v_1(L)=-\frac{q} {2EI}(\frac{L^4} {2}-\frac{L^4} {3}+\frac{L^4} {12})=-\fr
 ## Find total deflection at {{x=L}}
 {{v(L)=v_1(L)+v_2(L)=\frac{3M_0L^2} {8EI}-\frac{qL^4} {8EI} }}
 ## Solve {{v(L)=0}} for the unknown condition {{M_0}}
-{{\frac{3M_0L^2} {8EI}-\frac{qL^4} {8EI}=0 \rightleftharpoons M_0=\frac{qL^2} {3}=\frac{1} {3}\rho g\pi R^2L^2}}
+{{\frac{3M_0L^2} {8EI}-\frac{qL^4} {8EI}=0 \Leftrightarrow M_0=\frac{qL^2} {3}=\frac{1} {3}\rho g\pi R^2L^2}}
 
-Solution for q: {{q=\frac{F} {L}=\frac{\rho g\pi R^2L} {L}=\rho g\pi R^2}}
+Finding {{q}}: {{q=\frac{F} {L}=\frac{\rho g\pi R^2L} {L}=\rho g\pi R^2}}
