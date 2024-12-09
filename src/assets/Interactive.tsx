@@ -1,30 +1,22 @@
 import { useState } from 'react';
 import './Interactive.css';
-import PropTypes from 'prop-types';
+import React from 'react';
 
-function Interactive(props) {
-  if (!props || !props.left || !props.middle || !props.right) {
+function Interactive({leftUrl, middleUrl, rightUrl, dimensions, minRange, maxRange}: Props) {
+  if (!leftUrl || !middleUrl || !rightUrl) {
     throw new Error("Interactive requires 3 pictures");
   }
-  if (!props.dimensions || !props.dimensions.width
-        || !props.dimensions.height || !props.dimensions.middleWidth) {
-    throw new Error("Dimensions Missing");
-  }
-  let left = props.left;
-  let middle = props.middle;
-  let right = props.right;
-  let width = props.dimensions.width;
-  let height = props.dimensions.height;
-  let midWidth = props.dimensions.middleWidth;
-  let minRange = props.minRange;
-  let maxRange = props.maxRange;
+  let width = dimensions.width;
+  let height = dimensions.height;
+  let midWidth = dimensions.middleWidth;
 
   let minVal = (minRange) ? Math.floor(minRange * width) : midWidth;
   let maxVal = (maxRange) ? Math.floor(maxRange * width) : width;
   let initial = Math.floor(minVal * 0.7 + maxVal * 0.3);
   const [x, setX] = useState(initial);
-  const onInput = (evt) => {
-    setX(evt.target.value);
+  const onInput = (event: React.FormEvent) => {
+    let value = parseFloat((event.target as HTMLInputElement).value);
+    setX(value);
   };
 
   // adapt the width of wrapper
@@ -46,28 +38,32 @@ function Interactive(props) {
       <section>
         <div style={style}>
           <div style={{width: `${x}px`}}>
-            <img src={left} width={width} height={height} alt="Back Layer" />
-            <img src={middle} width={midWidth} height={height} style={{left: `${x - width - midWidth}px`}} alt="Middle Sliding Layer" />
+            <img src={leftUrl} width={width} height={height} alt="Back Layer" />
+            <img src={middleUrl} width={midWidth} height={height} style={{left: `${x - width - midWidth}px`}} alt="Middle Sliding Layer" />
           </div>
           <div style={{width: `${width - x}px`}}>
-            <img src={right} width={width} height={height} alt="Top Layer" />
+            <img src={rightUrl} width={width} height={height} alt="Top Layer" />
           </div>
         </div>
         <input type="range" style={{width: `${dialLength}px`}}
-            min={minVal} max={maxVal} placeholder={initial} onInput={onInput} />
+            min={minVal} max={maxVal} placeholder={""+initial} onInput={onInput} />
       </section>
     </section>
   )
 }
 
 // use Typescript instead of cheking in runtime
-Interactive.propTypes = {
-  left: PropTypes.string,
-  middle: PropTypes.string,
-  right: PropTypes.string,
-  dimensions: PropTypes.object,
-  minRange: PropTypes.number || null,
-  maxRange: PropTypes.number || null
-}
+type Props = {
+  leftUrl: string,
+  middleUrl: string,
+  rightUrl: string,
+  dimensions: {
+    width: number,
+    height: number,
+    middleWidth: number
+  },
+  minRange?: number,
+  maxRange?: number
+};
 
 export default Interactive;

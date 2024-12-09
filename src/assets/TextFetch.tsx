@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function TextFetch(textUrl) {  // have to start with uppercase because i need to use useState
+export default function TextFetch(textUrl: string) {  // have to start with uppercase because i need to use useState
   let [template, setTemplate] = useState("");
   fetch(textUrl)
     .then(statusCheck)
@@ -15,7 +15,7 @@ export default function TextFetch(textUrl) {  // have to start with uppercase be
   return template;
 }
 
-async function statusCheck(res) {
+async function statusCheck(res: Response) {
   if (!res.ok) {
     throw new Error(await res.text());
   }

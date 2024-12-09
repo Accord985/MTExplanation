@@ -2,21 +2,18 @@ import katex from 'katex';
 import "katex/dist/katex.min.css";  // css for latex
 import PropTypes from 'prop-types';
 import '/src/assets/Explanation.css'
-import { Fragment, isValidElement, cloneElement, Children } from 'react';
+import { Fragment, isValidElement, cloneElement, Children, ReactElement } from 'react';
 import reactStringReplace from 'react-string-replace';
+import React from 'react';
 
 // only inline expressions supported. No display mode
-function Math(props) {
-  let mathHTML = katex.renderToString(props.latex, {throwOnError: false});
+function Math({latex, display}: {latex: string, display: boolean}) {
+  let mathHTML = katex.renderToString(latex, {throwOnError: false, displayMode: display});
   return <span dangerouslySetInnerHTML={{__html: mathHTML}}></span>;
 }
 
-Math.propTypes = {
-  latex: PropTypes.string
-};
-
-function Notes(props) {
-  let note = props.note;
+function Notes({note}: {note: (string | ReactElement)[]}) {
+  console.log(note);
   return (
     <Fragment key={stringHash("notes wrapper"+note)}>
       <section className='notes' key={stringHash("notes"+note)}>
@@ -27,11 +24,7 @@ function Notes(props) {
   );
 }
 
-Notes.propTypes = {
-  note: PropTypes.array
-}
-
-function stringHash(s) {
+function stringHash(s: string) {
   let hash = 0;
   if (s.length === 0) return hash;
   for (let i = 0; i < s.length; i++) {
@@ -42,7 +35,7 @@ function stringHash(s) {
   return hash;
 }
 
-export default function Explanation(props) {
+export default function Explanation(props: {template: string, resources: Record<string, ReactElement>}) {
   let template = props.template;
   let resources = props.resources;
   if (template === "") {
@@ -56,56 +49,53 @@ export default function Explanation(props) {
       </section>
     );
   }
-  let sections = template.split("<S>\n");
-  let result = [];
+  let sections: string[] = template.split("<S>\n");
+  let sectionElements = [];
   for (let i = 0; i < sections.length; i++) {
     let curr = sections[i];
     if (curr !== "") {
       let currSection = buildSection(curr);
-      result[i] = currSection;
+      sectionElements[i] = currSection;
     }
   }
 
-  result = <section className='explanation'>{result}</section>;
-  const doubleBrackets = /{{((?:[^{}]+[{}]{1})*[^{}]+)}}/;  // allow any single {} in between but not {{ or }}. Captures the thing between {{ }}
+  let result = <section className='explanation'>{sectionElements}</section>;
+  const doubleBrackets: RegExp = /{{((?:[^{}]+[{}]{1})*[^{}]+)}}/;  // allow any single {} in between but not {{ or }}. Captures the thing between {{ }}
   result = replaceInlineTemplates(result, doubleBrackets, (match, i) => {
-    return <Math key={match+i} latex={match} />;
-  });
+    return <Math key={match+i} latex={match} display={false} />;
+  }) as ReactElement;
   const figure = /##RESOURCE (.+)/;  // I don't care about resource in resource
   result = replaceInlineTemplates(result, figure, (match,i) => {
     let resource = resources[match] || <p key={match+i}>{`Error: unable to find an item with key "${match}" in resources`}</p>;
     return resource;
-  });
+  }) as ReactElement;
 
-
-  function replaceInlineTemplates(element, regex, replaceFunc) {
+  function replaceInlineTemplates(element: ReactElement | string, regex: RegExp, replaceFunc: (match: string, i: number) => ReactElement): (string | ReactElement) {
     // base: children is string: replace the value at where i find it; no children: do nothing
     // recursive: find props children and repeat for them.
     //  array: flatten and then go through elements; element: find children; note: find the note
     if (typeof element === 'string') {
-      let replacement =  reactStringReplace(element, regex, replaceFunc);
-      return replacement;
+      let replacement = reactStringReplace(element, regex, replaceFunc);
+      return <>{replacement}</>;
     } else if (isValidElement(element)) {
-      if (element.props.note) {  // Notes has a different way of accessing the children
-        let replaced = element.props.note.map((item) => {
-          return replaceInlineTemplates(item, regex, replaceFunc)
+      let eProps = element.props as {note?: (string | ReactElement)[], latex?: string, children: ReactElement[]};
+      if (eProps.note) {  // Notes has a different way of accessing the children
+        let replaced = eProps.note.map((item: string | ReactElement) => {
+          return replaceInlineTemplates(item, regex, replaceFunc);
         });  // replace every single component
-        return cloneElement(element, {
-          note: replaced.flat()
-        });
+        return <Notes note={replaced.flat()} />;
       }
-      if (element.props.latex) {  // Don't process Math element
+      if (eProps.latex) {  // Don't process Math element
         return element;
       }
-      return cloneElement(element, {
-        children: Children.map(element.props.children, (child) =>
-          replaceInlineTemplates(child, regex, replaceFunc)
-        ),
-      });
+      return cloneElement(element, eProps, Children.map(eProps.children, (child) =>
+        replaceInlineTemplates(child, regex, replaceFunc)
+      ));
     }
+    return <></>;
   }
 
-  function buildSection(sectionTemplate) {
+  function buildSection(sectionTemplate: string) {
     // a key is recommended for generating a list of elements.
     // so we let the application know which element is which.
     let parts = sectionTemplate.split('\n\n');
@@ -127,7 +117,7 @@ export default function Explanation(props) {
   }
 
   // * only allowed in list template
-  function buildList(listTemplate) {
+  function buildList(listTemplate: string) {
     const numCheck = /^\d+\. /;
     let items = listTemplate.split('\n');
     let itemElements = [];
@@ -138,6 +128,10 @@ export default function Explanation(props) {
         itemElements[i] = <li key={stringHash(content)}>{content}</li>;
       } else if (curr.startsWith("* ")) {
         itemElements[i] = <Notes note={[curr.substring(2)]} />;
+      } else if (curr.startsWith('##RESOURCE ')) {
+        let resourceName = curr.substring(11);
+        itemElements[i] = resources[resourceName] ||
+            <p key={resourceName}>{`Error: unable to find an item with key "${resourceName}" in resources`}</p>;;
       } else if (curr !== "") {
         itemElements[i] = <p key={stringHash(curr)}>{curr}</p>;
       }
@@ -147,20 +141,26 @@ export default function Explanation(props) {
     </ol>;
   }
 
-  function buildStandard(template) {
+  function buildStandard(template: string) {
     let lines = template.split('\n');
     let contents = [];
     for (let i = 0; i < lines.length; i++) {
       let curr = lines[i];
       let currKey = stringHash(curr);
       if (curr.startsWith('# ')) {
-        contents[i] = <h2 key={currKey}>{curr.substring('2')}</h2>
+        contents[i] = <h2 key={currKey}>{curr.substring(2)}</h2>
       } else if (curr.startsWith('## ')) {
-        contents[i] = <h3 key={currKey}>{curr.substring('3')}</h3>
+        contents[i] = <h3 key={currKey}>{curr.substring(3)}</h3>
       } else if (curr.startsWith('### ')) {
-        contents[i] = <h4 key={currKey}>{curr.substring('4')}</h4>
+        contents[i] = <h4 key={currKey}>{curr.substring(4)}</h4>
       } else if (curr.startsWith('* ')) {
-        contents[i] = <h4 key={currKey}>{curr.substring('2')}</h4>
+        contents[i] = <h4 key={currKey}>{curr.substring(2)}</h4>
+      } else if (curr.startsWith('$ ')) {
+        contents[i] = <Math latex={curr.substring(2)} display={true} />
+      } else if (curr.startsWith('##RESOURCE ')) {
+        let resourceName = curr.substring(11);
+        contents[i] = resources[resourceName] ||
+            <p key={resourceName}>{`Error: unable to find an item with key "${resourceName}" in resources`}</p>;;
       } else {
         contents[i] = <p key={currKey}>{curr}</p>
       }
