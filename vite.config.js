@@ -13,7 +13,8 @@ export default defineConfig(({command, isPreview}) => {
         input: {
           main: resolve('index.html'),
           q1: resolve('q1.html'),
-          q2: resolve('q2.html')
+          q2: resolve('q2.html'),
+          q3: resolve('q3.html')
         }
       }
     }
