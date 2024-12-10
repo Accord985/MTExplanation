@@ -13,7 +13,6 @@ function Math({latex, display}: {latex: string, display: boolean}) {
 }
 
 function Notes({note}: {note: (string | ReactElement)[]}) {
-  console.log(note);
   return (
     <Fragment key={stringHash("notes wrapper"+note)}>
       <section className='notes' key={stringHash("notes"+note)}>
@@ -154,7 +153,7 @@ export default function Explanation(props: {template: string, resources: Record<
       } else if (curr.startsWith('### ')) {
         contents[i] = <h4 key={currKey}>{curr.substring(4)}</h4>
       } else if (curr.startsWith('* ')) {
-        contents[i] = <h4 key={currKey}>{curr.substring(2)}</h4>
+        contents[i] = <Notes key={currKey} note={[curr.substring(2)]} />
       } else if (curr.startsWith('$ ')) {
         contents[i] = <Math latex={curr.substring(2)} display={true} />
       } else if (curr.startsWith('##RESOURCE ')) {

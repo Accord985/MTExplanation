@@ -31,15 +31,17 @@ function Interactive({leftUrl, middleUrl, rightUrl, dimensions, minRange, maxRan
     };
     dialLength = CLIENT_WIDTH * 0.8;
   }
+  console.log(dimensions);
+  // console.log(x - width - midWidth);
 
   return (
     <section className='interactive'>
-      <h2 className='diagram'>(Experimental) Interactive Example: Drag the slider!</h2>
+      <h2 className='diagram'>Drag the slider!</h2>
       <section>
         <div style={style}>
           <div style={{width: `${x}px`}}>
             <img src={leftUrl} width={width} height={height} alt="Back Layer" />
-            <img src={middleUrl} width={midWidth} height={height} style={{left: `${x - width - midWidth}px`}} alt="Middle Sliding Layer" />
+            <img src={middleUrl} style={{left: `${x - width - midWidth}px`, width: `${midWidth}px`, height: `${height}px`}} alt="Middle Sliding Layer" />
           </div>
           <div style={{width: `${width - x}px`}}>
             <img src={rightUrl} width={width} height={height} alt="Top Layer" />

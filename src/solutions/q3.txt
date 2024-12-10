@@ -25,18 +25,27 @@ Thus compressive force is F anywhere on the beam.
 ## Buckling force (for one solid support)
 $ F_c=\frac{EI\pi^2} {4L^2}
 * There is only one support on the beam for this question. Remember the definition of support: Prevents movements for both horizontal and vertical direction along with rotation. Then, only the ground provides such support.
+where {{I}} equals to the second moment of inertia for a ring:
+$ I=\frac{\pi} {4}(R_1^4-R_2^4)
+Therefore,
+$ F_c=\frac{E(R_1^4-R_2^4)\pi^3}{16L^2}
+and plugging in the numbers, we get {{F<F_c=13.8\text{N} }}
 ## Compressive load failure
 In this case,
 $ \sigma_x=\frac{N}{A}=\frac{F}{\pi(R_1^2-R_2^2)}, \sigma_y=\tau=0
-Thus, \sigma_{y\theta} at the seam is
-* Here {{\theta}} is 25degree. You need to check if the angle is the one that you need in the formula!
+Thus, {{\sigma_{y\theta} }} at the seam is
+$ \sigma_{y\theta}=\sigma_{\text{av}}-\frac{\sigma_x-\sigma_y}{2}\cos(2\theta)-\tau\sin(2\theta)=\frac{F}{2\pi(R_1^2-R_2^2)}(1-\cos(2\theta))
+and {{\tau_\theta}} at the seam is
+$ \tau_\theta=-\frac{\sigma_x-\sigma_y}{2}\sin(2\theta)+\tau\cos(2\theta)=-\frac{F}{2\pi(R_1^2-R_2^2)}\sin(2\theta)
+* Here {{\theta}} is {{25\degree}}. You need to check if the angle is the one that you need in the formula!
 Thus, the constraints for F is
-$ <UTS, <UCS
+$ \begin{cases} \sigma_{y\theta}<\text{UTS} \\ |\tau_\theta|<\text{USS} \end{cases}
 or
-$ ??
+$ \begin{cases} F<\frac{\text{UTS}}{1-\cos(2\theta)}\cdot2\pi(R_1^2-R_2^2) \\ F<\frac{\text{USS}}{\sin(2\theta)}\cdot2\pi(R_1^2-R_2^2) \end{cases}
 Plugging in the numbers,
+$ \begin{cases} F<62\text{N} \\ F<19.3\text{N} \end{cases}
 
 <S>
 # Step 3: Combine the requirements
-From previous calculations, we get
-Thus,
+From previous calculations, the strictest constraints is {{F<13.8\text{N} }} (smallest maximum value for {{F}})
+Thus, the maximum force allowed is {{13.8\text{N} }} .
