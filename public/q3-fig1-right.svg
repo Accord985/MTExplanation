@@ -25,8 +25,8 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="1.8721465"
-     inkscape:cx="480.7316"
-     inkscape:cy="63.830474"
+     inkscape:cx="480.73161"
+     inkscape:cy="63.830475"
      inkscape:window-width="1920"
      inkscape:window-height="974"
      inkscape:window-x="-11"
@@ -164,5 +164,16 @@
        d="m 179.06028,29.537171 -17.94842,0.141327"
        id="path5"
        sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:9.87777px;font-family:Arial;-inkscape-font-specification:Arial;fill:#000000;fill-rule:evenodd;stroke-width:0.2;stroke-linecap:square;stroke-linejoin:round;paint-order:fill markers stroke"
+       x="164.78633"
+       y="26.145346"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="stroke-width:0.2"
+         x="164.78633"
+         y="26.145346">F</tspan></text>
   </g>
 </svg>
