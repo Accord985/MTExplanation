@@ -10,7 +10,7 @@ import TextFetch from './assets/TextFetch.tsx';
 import Explanation from './assets/Explanation.tsx';
 import Interactive from './assets/Interactive.tsx';
 
-export default function Q1() {
+export default function Q2() {
   let template = TextFetch(q2Solution);
   let sliderExample = <Interactive leftUrl={q1Back} middleUrl={q1Mid} rightUrl={q1}
       dimensions={{width: 580, height: 232, middleWidth: 23}}

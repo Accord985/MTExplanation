@@ -1,2 +1,42 @@
 <S>
-Here we go
+# Identify the type of the Problem:
+
+1. Failure analysis: we want to know the load to test for failure or possible buckling force of the beam.
+2. Load type: compressive axial load, uniform along the beam, and may result in buckling
+3. bar type: nonisotropic (seam)
+4. working direction: reverse [where I find appropriate forces so that the beam does not fail]
+
+<S>
+# Identify the procedures according to the type:
+
+1. Make the cut and find the force along the x axis (defined by ourselves)
+2. Calculate the force when the beam [a] buckles or [b] fails due to compressive force at the seam
+3. Combine the constraints and take the strictest one for the force
+
+<S>
+# Step 1: Finding the force along the x axis
+##RESOURCE fig1
+$ N+F=0
+$ N=-F(0<x<L)
+Thus compressive force is F anywhere on the beam.
+
+<S>
+# Step 2: Find the maximum force before buckling/failure due to pressure
+## Buckling force (for one solid support)
+$ F_c=\frac{EI\pi^2} {4L^2}
+* There is only one support on the beam for this question. Remember the definition of support: Prevents movements for both horizontal and vertical direction along with rotation. Then, only the ground provides such support.
+## Compressive load failure
+In this case,
+$ \sigma_x=\frac{N}{A}=\frac{F}{\pi(R_1^2-R_2^2)}, \sigma_y=\tau=0
+Thus, \sigma_{y\theta} at the seam is
+* Here {{\theta}} is 25degree. You need to check if the angle is the one that you need in the formula!
+Thus, the constraints for F is
+$ <UTS, <UCS
+or
+$ ??
+Plugging in the numbers,
+
+<S>
+# Step 3: Combine the requirements
+From previous calculations, we get
+Thus,
